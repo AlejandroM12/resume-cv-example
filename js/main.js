@@ -88,36 +88,64 @@ themeButton.addEventListener("click", () => {
 });
 /*==================== REDUCE THE SIZE AND PRINT ON AN A4 SHEET ====================*/
 function scaleCv() {
-    document.body.classList.add("scale-cv");
-  }
+  document.body.classList.add("scale-cv");
+}
 /*==================== REMOVE THE SIZE WHEN THE CV IS DOWNLOADED ====================*/
 function removeScale() {
-    document.body.classList.remove("scale-cv");
-  }
+  document.body.classList.remove("scale-cv");
+}
 /*==================== GENERATE PDF ====================*/
 // PDF generated area
 let areaCv = document.getElementById("area-cv");
 let resumeButton = document.getElementById("resume-button");
 // Html2pdf options
 let opt = {
-    margin: 0,
-    filename: "myResume.pdf",
-    image: { type: "jpeg", quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { format: "a4", orientation: "portrait" },
-  };
+  margin: 0,
+  filename: "myResume.pdf",
+  image: { type: "jpeg", quality: 0.98 },
+  html2canvas: { scale: 2 },
+  jsPDF: { format: "a4", orientation: "portrait" },
+};
 
 // Function to call areaCv and Html2Pdf options
 function generateResume() {
-    html2pdf(areaCv, opt);
-  }
+  html2pdf(areaCv, opt);
+}
 
 // When the button is clicked, it executes the three functions
 resumeButton.addEventListener("click", () => {
-    // 1. The class .scale-cv is added to the body, where it reduces the size of the elements
-    scaleCv();
-    // 2. The PDF is generated
-    generateResume();
-    // 3. The .scale-cv class is removed from the body after 5 seconds to return to normal size.
-    setTimeout(removeScale, 5000);
-  });
+  // 1. The class .scale-cv is added to the body, where it reduces the size of the elements
+  scaleCv();
+  // 2. The PDF is generated
+  generateResume();
+  // 3. The .scale-cv class is removed from the body after 5 seconds to return to normal size.
+  setTimeout(removeScale, 5000);
+});
+/*========== CONFIRMATION MESSAGE ==========*/
+const countdownElement = document.getElementById("countdown");
+
+// Fecha de destino (1 de julio del 2023)
+const countdownDate = new Date("July 1, 2023 00:00:00").getTime();
+
+// Actualiza el contador cada segundo
+const countdownTimer = setInterval(() => {
+  const now = new Date().getTime();
+  const distance = countdownDate - now;
+
+  // Calcula los días, horas, minutos y segundos restantes
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Actualiza el elemento del contador
+  countdownElement.innerHTML = `The remaining time is ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.`;
+
+  // Si se llega a la fecha de destino, detiene el contador
+  if (distance < 0) {
+    clearInterval(countdownTimer);
+    countdownElement.innerHTML = "The day has arrived!";
+  }
+}, 1000);

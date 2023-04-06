@@ -585,6 +585,31 @@ img {
   visibility: visible;
   bottom: 5rem;
 }
+/*========== CONFIRMATION MESSAGE ==========*/
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.confirmation h2 {
+  font-size: var(--h1-font-size);
+  color: var(--title-color);
+  margin-bottom: var(--mb-2);
+}
+
+.confirmation p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+#countdown {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
 /*========== MEDIA QUERIES ==========*/
 /* For small devices, menu two columns */
 @media screen and (max-width: 320px) {
